@@ -37,6 +37,7 @@ type NewPostFormProps = {
   user: User; // parent component checks user so additional checks aer not needed ut
   communityImageURL?: string;
   currentCommunity?: Community;
+  isGenericSubmit?: boolean;
 };
 
 // Tab items which are static (not react) hence outside
@@ -84,6 +85,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
   user,
   communityImageURL,
   currentCommunity,
+  isGenericSubmit,
 }) => {
   const router = useRouter();
   const [selectedTab, setSelectedTab] = useState(formTabs[0].title); // formTabs[0] = Post
@@ -110,8 +112,6 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
     const { communityId } = router.query;
     // create a new post object
     const newPost: Post = {
-      communityId: communityId as string,
-      communityImageURL: communityImageURL || "",
       creatorId: user?.uid,
       creatorUsername: user.email!.split("@")[0],
       title: textInputs.title,
@@ -120,6 +120,11 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
       voteStatus: 0,
       createTime: serverTimestamp() as Timestamp,
     }; // object representing the post
+
+    if (!isGenericSubmit) {
+      newPost.communityId = communityId as string;
+      newPost.communityImageURL = communityImageURL || "";
+    }
 
     setLoading(true);
 
@@ -135,7 +140,11 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
           imageURL: downloadURL,
         });
       }
-      router.push(communityLink); // redirect user back to communities page after post is created
+      if (isGenericSubmit) {
+        router.push("/");
+      } else {
+        router.push(communityLink); // redirect user back to communities page after post is created
+      }
     } catch (error: any) {
       console.log("Error: handleCreatePost", error.message);
       showToast({
@@ -177,7 +186,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({
         selectedTab={selectedTab}
         setSelectedTab={setSelectedTab}
       />
-      <BackToCommunityButton communityId={currentCommunity?.id} />
+      {!isGenericSubmit && <BackToCommunityButton communityId={currentCommunity?.id} />}
       <PostBody
         selectedTab={selectedTab}
         handleCreatePost={handleCreatePost}

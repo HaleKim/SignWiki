@@ -1,5 +1,6 @@
 import React, { ReactNode } from "react";
 import Navbar from "../Navbar/Navbar";
+import Footer from "./Footer"; // Import the new Footer component
 
 /**
  * Children components that can exist that are rendered.
@@ -28,6 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     <>
       <Navbar />
       <main>{children}</main>
+      <Footer /> {/* Render the Footer component */}
     </>
   );
 };

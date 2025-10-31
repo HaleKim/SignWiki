@@ -1,5 +1,6 @@
 
 import { auth } from "@/firebase/clientApp";
+import useDirectory from "@/hooks/useDirectory";
 
 import { Button, Flex, Image, Link, Switch, Text } from "@chakra-ui/react";
 import React from "react";
@@ -59,32 +60,34 @@ const Navbar: React.FC = () => {
         cursor="pointer"
       >
         {/* Logo which is always visible */}
-        <Image src="/images/logo.svg" height="30px" alt="Website logo" ml={1} />
+        <Image src="/images/hello.png" height="30px" alt="SignWiki Logo" ml={1} />
 
         {/* Logo name not visible on mobile */}
-        <Image
-          src="/images/logo_text.svg"
-          height="30px"
+        <Text
           display={{ base: "none", md: "unset" }}
-          alt="Website text logo"
-        />
+          fontWeight={700}
+          fontSize="20pt"
+          ml={2}
+        >
+          SignWiki
+        </Text>
       </Flex>
       {/* New Navigation Links */}
       <Flex align="center" ml={{ base: 0, md: 2 }} display={{ base: "none", md: "flex" }}>
         <NextLink href="/" passHref>
-          <Button as={Link} variant="ghost" mr={2}>홈</Button>
+          <Button variant="ghost" mr={2}>홈</Button>
         </NextLink>
         <NextLink href="/services" passHref>
-          <Button as={Link} variant="ghost" mr={2}>지원/복지 서비스</Button>
+          <Button variant="ghost" mr={2}>지원/복지 서비스</Button>
         </NextLink>
         <NextLink href="/submit" passHref>
-          <Button as={Link} variant="ghost" mr={2}>정보 등록</Button>
+          <Button variant="ghost" mr={2}>정보 등록</Button>
         </NextLink>
         <NextLink href="/mypage" passHref>
-          <Button as={Link} variant="ghost" mr={2}>마이페이지</Button>
+          <Button variant="ghost" mr={2}>마이페이지</Button>
         </NextLink>
         <NextLink href="/wiki" passHref>
-          <Button as={Link} variant="ghost" mr={2}>수어 위키</Button>
+          <Button variant="ghost" mr={2}>수어 위키</Button>
         </NextLink>
       </Flex>
 

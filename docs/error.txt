@@ -1,0 +1,110 @@
+** in home, there are five errors **
+
+Unhandled Runtime Error
+Error: Hydration failed because the initial UI does not match what was rendered on the server.
+See more info here: https://nextjs.org/docs/messages/react-hydration-error
+
+Expected server HTML to contain a matching <a> in <a>.
+
+
+<a>
+^^^
+  <eval>
+    ...
+      <eval>
+        <a>
+        ^^^
+Call Stack
+React
+throwOnHydrationMismatch
+node_modules\react-dom\cjs\react-dom.development.js (12507:1)
+tryToClaimNextHydratableInstance
+node_modules\react-dom\cjs\react-dom.development.js (12520:1)
+updateHostComponent
+node_modules\react-dom\cjs\react-dom.development.js (19931:1)
+beginWork
+node_modules\react-dom\cjs\react-dom.development.js (21657:1)
+HTMLUnknownElement.callCallback
+node_modules\react-dom\cjs\react-dom.development.js (4164:1)
+Object.invokeGuardedCallbackDev
+node_modules\react-dom\cjs\react-dom.development.js (4213:1)
+invokeGuardedCallback
+node_modules\react-dom\cjs\react-dom.development.js (4277:1)
+beginWork$1
+node_modules\react-dom\cjs\react-dom.development.js (27490:1)
+performUnitOfWork
+node_modules\react-dom\cjs\react-dom.development.js (26596:1)
+workLoopSync
+node_modules\react-dom\cjs\react-dom.development.js (26505:1)
+renderRootSync
+node_modules\react-dom\cjs\react-dom.development.js (26473:1)
+performConcurrentWorkOnRoot
+node_modules\react-dom\cjs\react-dom.development.js (25777:1)
+workLoop
+node_modules\scheduler\cjs\scheduler.development.js (266:1)
+flushWork
+node_modules\scheduler\cjs\scheduler.development.js (239:1)
+MessagePort.performWorkUntilDeadline
+node_modules\scheduler\cjs\scheduler.development.js (533:1)
+
+almost same error * 3
+
+Unhandled Runtime Error
+Error: There was an error while hydrating. Because the error happened outside of a Suspense boundary, the entire root will switch to client rendering.
+
+Call Stack
+React
+updateHostRoot
+node_modules\react-dom\cjs\react-dom.development.js (19878:1)
+beginWork
+node_modules\react-dom\cjs\react-dom.development.js (21654:1)
+beginWork$1
+node_modules\react-dom\cjs\react-dom.development.js (27465:1)
+performUnitOfWork
+node_modules\react-dom\cjs\react-dom.development.js (26596:1)
+workLoopSync
+node_modules\react-dom\cjs\react-dom.development.js (26505:1)
+renderRootSync
+node_modules\react-dom\cjs\react-dom.development.js (26473:1)
+recoverFromConcurrentError
+node_modules\react-dom\cjs\react-dom.development.js (25889:1)
+performConcurrentWorkOnRoot
+node_modules\react-dom\cjs\react-dom.development.js (25789:1)
+workLoop
+node_modules\scheduler\cjs\scheduler.development.js (266:1)
+flushWork
+node_modules\scheduler\cjs\scheduler.development.js (239:1)
+MessagePort.performWorkUntilDeadline
+node_modules\scheduler\cjs\scheduler.development.js (533:1)
+
+----------------------------------------------------------
+
+** when move to 지원/복지 서비스 in navigation bar : two errors **
+
+Unhandled Runtime Error
+ReferenceError: HStack is not defined
+
+Source
+pages\services.tsx (35:8) @ HStack
+
+  33 |   return (
+  34 |     <Box p={8}>
+> 35 |       <HStack justifyContent="space-between" mb={6}>
+     |        ^
+  36 |         <Heading as="h1" size="lg">
+  37 |           지원/복지 서비스
+  38 |         </Heading>
+
+Unhandled Runtime Error
+ReferenceError: HStack is not defined
+
+Source
+pages\services.tsx (35:8) @ HStack
+
+  33 |   return (
+  34 |     <Box p={8}>
+> 35 |       <HStack justifyContent="space-between" mb={6}>
+     |        ^
+  36 |         <Heading as="h1" size="lg">
+  37 |           지원/복지 서비스
+  38 |         </Heading>

@@ -71,4 +71,5 @@ const defaultCommunityState: CommunityState = {
 export const communityState = atom<CommunityState>({
   key: "communityState",
   default: defaultCommunityState,
+  dangerouslyAllowMutability: true,
 });
