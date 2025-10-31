@@ -1,0 +1,164 @@
+SignWiki MVP 개발을 위한 Task 세분화 문서 (v3, 개발 환경 설정 포함)
+아래 내용은 PRD v1.1을 기반으로, mbeps/next_discussion_platform 프로젝트를 로컬 환경에 설정하는 과정을 포함하여 MVP 개발 범위를 실제 작업 단위인 Epic, Task, Sub-task로 세분화한 것입니다.
+
+기본 요구 사항(규칙):
+함수 단위로 쪼개서 만들고, 모듈 명세서, task 이력 관리 문서, 주석을 모두 작성하면서 작업을 진행합니다.
+
+Epic 0: 개발 환경 설정 (Development Environment Setup)
+이 Epic은 mbeps/next_discussion_platform 오픈소스 프로젝트를 로컬 컴퓨터에서 실행하고 개발을 시작할 수 있는 상태로 만드는 것을 목표로 합니다.
+
+Task 0.1: 필수 소프트웨어 설치 및 확인
+
+설명: SignWiki 개발에 필요한 기본 소프트웨어(Node.js, Git 등)를 설치하고 버전을 확인합니다.
+
+Sub-tasks:
+
+0.1.1. Git 설치: 소스 코드를 복제(clone)하기 위해 Git을 설치합니다.
+
+0.1.2. Node.js 설치: React/Next.js 프로젝트 실행을 위해 Node.js LTS 버전을 설치합니다.
+
+0.1.3. Firebase CLI 설치: Firebase 프로젝트와 연동하고 Cloud Functions를 배포하기 위해 Firebase Command Line Interface를 전역(global)으로 설치합니다. (npm install -g firebase-tools)
+
+Task 0.2: 프로젝트 소스 코드 복제 및 의존성 설치
+
+설명: GitHub에서 mbeps/next_discussion_platform의 소스 코드를 로컬로 가져와 프로젝트 실행에 필요한 라이브러리들을 설치합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+GitHub 저장소를 git clone 명령어로 복제하여 프로젝트의 전체 구조와 코드를 확보합니다.
+
+Sub-tasks:
+
+0.2.1. git clone https://github.com/mbeps/next_discussion_platform.git 명령어를 실행하여 프로젝트를 복제합니다.
+
+0.2.2. 복제된 프로젝트 폴더(next_discussion_platform)로 이동합니다.
+
+0.2.3. npm install (또는 yarn install) 명령어를 실행하여 package.json에 명시된 모든 의존성 라이브러리를 설치합니다.
+
+Task 0.3: Firebase 프로젝트 설정 및 연동
+
+설명: 백엔드 역할을 할 Firebase 프로젝트를 생성하고, 로컬 개발 환경과 연동합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+프로젝트 문서에 명시된 대로 Firebase의 Authentication, Firestore, Cloud Functions를 설정합니다.
+
+Sub-tasks:
+
+0.3.1. Firebase 콘솔에서 새 프로젝트를 생성합니다.
+
+0.3.2. 생성된 프로젝트에서 Authentication을 활성화하고, 'Google' 및 'GitHub' 로그인 제공업체를 추가합니다.
+
+0.3.3. Firestore Database를 생성하고, 프로젝트 문서에 명시된 대로 **색인(Indexes)**을 설정합니다. (posts, comments 컬렉션에 대한 색인)
+
+0.3.4. 프로젝트 루트 디렉터리에 있는 .env.example 파일을 복사하여 .env.local 파일을 생성하고, Firebase 프로젝트 설정에서 확인한 웹 앱 구성 정보(API 키, 프로젝트 ID 등)를 입력합니다.
+
+0.3.5. firebase deploy --only functions 명령어를 실행하여 필요한 Cloud Functions를 배포합니다.
+
+Task 0.4: 로컬 개발 서버 실행 및 확인
+
+설명: 모든 설정이 완료된 프로젝트를 로컬에서 실행하고 정상적으로 작동하는지 확인합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+프로젝트에 내장된 개발 스크립트를 사용하여 로컬 서버를 구동합니다.
+
+Sub-tasks:
+
+0.4.1. npm run dev (또는 yarn dev) 명령어를 실행하여 개발 서버를 시작합니다.
+
+0.4.2. 웹 브라우저에서 http://localhost:3000으로 접속하여 next_discussion_platform의 기본 홈페이지가 정상적으로 표시되는지 확인합니다.
+
+Epic 1: 공통 기반 및 레이아웃 구축 (Foundation & Layout)
+이 Epic은 mbeps/next_discussion_platform의 기본 레이아웃과 인증 시스템을 활용하여 SignWiki의 전체적인 뼈대를 구축하는 것을 목표로 합니다.
+
+Task 1.1: 기본 페이지 라우팅 및 레이아웃 수정
+
+설명: 사이트 전체에 공통적으로 적용될 헤더, 푸터, 네비게이션 메뉴 등 공통 레이아웃을 SignWiki의 목적에 맞게 수정하고 주요 페이지들의 경로를 설정합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+Layout 및 Navbar 컴포넌트 수정: components/Layout/ 및 components/Navbar/에 있는 기존 컴포넌트를 수정하여 SignWiki의 네비게이션 구조를 적용합니다.
+
+인증 UI 재사용: 기존 헤더의 로그인/로그아웃 및 프로필 드롭다운 UI와 로직은 그대로 재사용합니다.
+
+Sub-tasks:
+
+1.1.1. components/Navbar/Navbar.tsx 파일을 수정하여, 네비게이션 메뉴 항목을 PRD에 명시된 대로 변경하고, '3D 아바타 On/Off' 토글 버튼 UI를 추가합니다.
+
+1.1.2. pages 디렉터리에 /services, /wiki/content 등 신규 페이지들의 기본 파일을 생성하여 Next.js의 파일 기반 라우팅을 설정합니다.
+
+Epic 2: A사 기능 프론트엔드 구현 (Information Portal Features)
+이 Epic은 mbeps/next_discussion_platform의 '커뮤니티'와 '게시물(Post)' 기능을 변형하여 A사의 정보 포털 페이지들을 구현하는 것을 목표로 합니다.
+
+Task 2.1: 홈페이지 UI 재구성 (/)
+
+설명: 기존의 게시물 피드 중심의 홈페이지를 '오늘의 소식', '인기 정보' 등 여러 섹션으로 구성된 포털 형태로 재구성합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+pages/index.tsx와 기존 PostItem 컴포넌트를 수정 및 재사용하여 포털 섹션을 구성합니다.
+
+Task 2.2: 지원/복지 서비스 페이지 신규 구현 (/services)
+
+설명: A사 고유 기능인 지원/복지 서비스 관련 페이지들을 신규로 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+프로젝트에 설정된 Chakra UI 테마와 컴포넌트를 활용하여 디자인 통일성을 유지합니다.
+
+Task 2.3: 정보 등록 페이지 기능 활용 (/submit)
+
+설명: 사용자가 정보를 등록하는 페이지를 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+기존의 게시물 생성 페이지 UI와 컴포넌트 구조를 최소한으로 수정하여 재활용합니다.
+
+Task 2.4: 마이페이지 확장 (/mypage)
+
+설명: 기존 사용자 프로필 페이지에 새로운 정보 탭들을 추가하여 마이페이지를 구성합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+기존 프로필 페이지 컴포넌트를 찾아 Chakra UI의 탭 컴포넌트를 사용하여 새로운 섹션들을 추가합니다.
+
+Epic 3: B사 기능 프론트엔드 구현 (Sign Language Wiki Features)
+이 Epic은 mbeps/next_discussion_platform의 '커뮤니티'와 '게시물' 개념을 B사의 '위키 카테고리'와 '위키 문서'로 치환하여 구현하는 것을 목표로 합니다.
+
+Task 3.1 ~ 3.3: 위키 카테고리별 페이지 구현
+
+설명: 3개의 위키 카테고리 각각에 대한 고유한 목록 및 상세 페이지 UI를 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+기존의 커뮤니티 목록/상세 페이지(pages/r/[communityId])와 게시물 상세 페이지(.../comments/[pid])를 각 위키 페이지의 기본 템플릿으로 활용하고, 각 위키의 특성에 맞게 레이아웃을 커스터마이징합니다.
+
+Task 3.4: 수어 자막 수정 페이지 레이아웃 구현
+
+설명: '자막 수정' 버튼 클릭 시 이동할 페이지의 UI 레이아웃을 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+기존 게시물 생성/수정 컴포넌트를 기본 뼈대로 삼아 웹캠, 타임라인 등 새로운 UI를 추가하여 구현합니다.
+
+Epic 4: A사 기능 프론트엔드 구현 (관리자 페이지)
+이 Epic은 신규로 관리자 페이지를 만들되, 기존 프로젝트의 UI 컴포넌트와 인증 체계를 활용하여 구현합니다.
+
+Task 4.1: 관리자 페이지 공통 레이아웃 및 대시보드 UI 구현 (/admin)
+
+설명: 관리자 전용 페이지의 기본 뼈대와 대시보드 UI를 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+Firebase Authentication의 사용자 역할(Role) 기능을 활용하여 특정 사용자만 /admin 경로에 접근할 수 있도록 라우팅을 제어합니다.
+
+Chakra UI 컴포넌트를 사용하여 관리자 페이지 UI를 구현합니다.
+
+Task 4.2: 가입자 및 콘텐츠 관리 페이지 UI 구현 (/admin/users, /admin/content)
+
+설명: 사용자 목록과 사용자가 등록한 콘텐츠 목록을 관리하는 페이지의 UI를 구현합니다.
+
+mbeps/next_discussion_platform 활용 방안:
+
+Chakra UI의 Table 컴포넌트를 사용하여 목록 UI를 구현합니다.
