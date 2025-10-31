@@ -2,7 +2,6 @@ import { Stack, Text, Link, VStack, Heading, Box, Image } from "@chakra-ui/react
 import type { NextPage } from "next";
 import { useAuthState } from "react-firebase-hooks/auth";
 import PageContent from "../components/Layout/PageContent";
-import PostLoader from "../components/Loaders/PostLoader";
 import { auth } from "../firebase/clientApp";
 
 const Home: NextPage = () => {
@@ -22,62 +21,70 @@ const Home: NextPage = () => {
   ];
 
   return (
-    <PageContent>
-      <VStack spacing={8} align="stretch">
-        {/* Main Branding Section */}
-        <VStack justify="center" align="center" py={10} spacing={4}>
-          <Image src="/images/hello.png" height="100px" alt="SignWiki Logo" />
-          <Heading as="h1" size="2xl">
-            SignWiki
-          </Heading>
-          <Text>청각장애인을 위한 커뮤니티 및 정보 공유 플랫폼</Text>
+    <Box>
+      {/* Main Branding Section */}
+      <VStack justify="center" align="center" py={10} spacing={3}>
+        <Image src="/images/hello.png" height="100px" alt="SignWiki Logo" />
+        <Heading as="h1" size="2xl">
+          SignWiki
+        </Heading>
+        <Text fontSize="md">청각장애인을 위한 커뮤니티 및 정보 공유 플랫폼</Text>
+        <Text fontSize="lg" fontWeight="bold">청각장애인들을 위한 플랫폼 SignWiki입니다! 환영합니다!</Text>
+      </VStack>
+
+      <PageContent>
+        {/* Left Column */}
+        <VStack spacing={8} align="stretch">
+          {/* 오늘의 소식 */}
+          <Box>
+            <Heading size="md" mb={4}>
+              오늘의 소식
+            </Heading>
+            <VStack spacing={2} align="stretch">
+              {todaysNews.map((news) => (
+                <Link key={news.id} href="#" _hover={{ textDecoration: "none" }}>
+                  <Box p={4} borderWidth="1px" borderRadius="md" _hover={{ bg: "gray.50" }}>
+                    <Text fontWeight="bold">{news.title}</Text>
+                    <Text fontSize="sm" color="gray.500">
+                      [{news.community}]
+                    </Text>
+                  </Box>
+                </Link>
+              ))}
+            </VStack>
+            <Link href="#" float="right" mt={2} color="blue.500">
+              더보기
+            </Link>
+          </Box>
+
+          {/* 인기 정보 */}
+          <Box>
+            <Heading size="md" mb={4}>
+              인기 정보
+            </Heading>
+            <VStack spacing={2} align="stretch">
+              {popularInfo.map((info) => (
+                <Link key={info.id} href="#" _hover={{ textDecoration: "none" }}>
+                  <Box p={4} borderWidth="1px" borderRadius="md" _hover={{ bg: "gray.50" }}>
+                    <Text fontWeight="bold">{info.title}</Text>
+                    <Text fontSize="sm" color="gray.500">
+                      [{info.community}]
+                    </Text>
+                  </Box>
+                </Link>
+              ))}
+            </VStack>
+            <Link href="#" float="right" mt={2} color="blue.500">
+              더보기
+            </Link>
+          </Box>
         </VStack>
 
-        {/* 오늘의 소식 */}
-        <Box>
-          <Heading size="md" mb={4}>
-            오늘의 소식
-          </Heading>
-          <VStack spacing={2} align="stretch">
-            {todaysNews.map((news) => (
-              <Link key={news.id} href="#" _hover={{ textDecoration: "none" }}>
-                <Box p={4} borderWidth="1px" borderRadius="md" _hover={{ bg: "gray.50" }}>
-                  <Text fontWeight="bold">{news.title}</Text>
-                  <Text fontSize="sm" color="gray.500">
-                    [{news.community}]
-                  </Text>
-                </Box>
-              </Link>
-            ))}
-          </VStack>
-          <Link href="#" float="right" mt={2} color="blue.500">
-            더보기
-          </Link>
-        </Box>
-
-        {/* 인기 정보 */}
-        <Box>
-          <Heading size="md" mb={4}>
-            인기 정보
-          </Heading>
-          <VStack spacing={2} align="stretch">
-            {popularInfo.map((info) => (
-              <Link key={info.id} href="#" _hover={{ textDecoration: "none" }}>
-                <Box p={4} borderWidth="1px" borderRadius="md" _hover={{ bg: "gray.50" }}>
-                  <Text fontWeight="bold">{info.title}</Text>
-                  <Text fontSize="sm" color="gray.500">
-                    [{info.community}]
-                  </Text>
-                </Box>
-              </Link>
-            ))}
-          </VStack>
-          <Link href="#" float="right" mt={2} color="blue.500">
-            더보기
-          </Link>
-        </Box>
-      </VStack>
-    </PageContent>
+        {/* Right Column (can be used for other content later) */}
+        <>
+        </>
+      </PageContent>
+    </Box>
   );
 };
 
